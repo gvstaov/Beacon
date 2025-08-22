@@ -1,0 +1,71 @@
+# Node modules
+/node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# Build / output (artefatos gerados)
+dist/
+build/
+out/
+release/
+*.asar
+
+# If TypeScript transpiles next to sources, ignore generated JS & maps
+# (Remova estas linhas se você quiser versionar os .js gerados)
+**/*.js
+**/*.js.map
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Package manager & dependency caches (do not ignore lockfiles)
+.pnp.*
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/patches
+!.yarn/releases
+# NOTE: keep package-lock.json / yarn.lock / pnpm-lock.yaml committed
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+.env.*.local
+.env.local
+secrets.json
+local-*.json
+
+# Testing / coverage
+coverage/
+nyc_output/
+
+# Dependency / packaging artifacts
+*.tgz
+*.zip
+
+# Misc caches
+.cache/
+.parcel-cache/
+
+# Optional: ignore release installers / platform-specific artifacts
+*.exe
+*.msi
+*.dmg
+*.AppImage
