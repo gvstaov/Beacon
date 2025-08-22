@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+    <title>Beacon</title>
+
+    <!-- Meta tags para SEO e PWA -->
+    <meta
+      name="description"
+      content="Um aplicativo de produtividade moderno e funcional"
+    />
+    <meta name="author" content="Beacon" />
+    <meta name="theme-color" content="#2383e2" />
+
+    <!-- Preload de fontes críticas -->
+    <link
+      rel="preload"
+      href="data:font/woff2;base64,"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+  <body>
+    <!-- Container principal da aplicação -->
+    <div class="app-container">
+      <!-- Sidebar de navegação -->
+      <aside class="sidebar" role="navigation" aria-label="Navegação principal">
+        <!-- Cabeçalho da sidebar -->
+        <header class="sidebar-header">
+          <div class="logo" aria-label="Beacon - Aplicativo de Produtividade">
+            📝 Beacon
+          </div>
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            title="Alternar tema (Ctrl+Shift+T)"
+            aria-label="Alternar entre tema claro e escuro"
+          >
+            🌓
+          </button>
+        </header>
+
+        <!-- Navegação principal -->
+        <nav class="sidebar-nav" role="menubar">
+          <div
+            class="nav-item active"
+            role="menuitem"
+            tabindex="0"
+            data-section="home"
+          >
+            <span class="icon" aria-hidden="true">🏠</span>
+            Início
+          </div>
+          <div
+            class="nav-item"
+            role="menuitem"
+            tabindex="0"
+            data-section="templates"
+          >
+            <span class="icon" aria-hidden="true">📋</span>
+            Templates
+          </div>
+          <div
+            class="nav-item"
+            role="menuitem"
+            tabindex="0"
+            data-section="settings"
+          >
+            <span class="icon" aria-hidden="true">⚙️</span>
+            Configurações
+          </div>
+          <div
+            class="nav-item"
+            role="menuitem"
+            tabindex="0"
+            data-section="trash"
+          >
+            <span class="icon" aria-hidden="true">🗑️</span>
+            Lixeira
+          </div>
+        </nav>
+
+        <!-- Seção de páginas -->
+        <section class="pages-section">
+          <header class="section-header">
+            <span>Páginas</span>
+            <button
+              class="new-page-btn"
+              id="newPageBtn"
+              title="Nova página (Ctrl+N)"
+              aria-label="Criar nova página"
+            >
+              +
+            </button>
+          </header>
+          <div id="pagesList" role="list" aria-label="Lista de páginas">
+            <!-- Páginas serão inseridas dinamicamente aqui -->
+          </div>
+        </section>
+      </aside>
+
+      <!-- Área principal de conteúdo -->
+      <main class="main-content" role="main">
+        <!-- Toolbar de formatação -->
+        <div
+          class="toolbar"
+          role="toolbar"
+          aria-label="Ferramentas de formatação"
+        >
+          <button
+            class="toolbar-btn"
+            id="boldBtn"
+            title="Negrito (Ctrl+B)"
+            data-command="bold"
+          >
+            <strong>B</strong>
+          </button>
+          <button
+            class="toolbar-btn"
+            id="italicBtn"
+            title="Itálico (Ctrl+I)"
+            data-command="italic"
+          >
+            <em>I</em>
+          </button>
+          <button
+            class="toolbar-btn"
+            id="underlineBtn"
+            title="Sublinhado (Ctrl+U)"
+            data-command="underline"
+          >
+            <u>U</u>
+          </button>
+
+          <div class="toolbar-separator" aria-hidden="true"></div>
+
+          <button
+            class="toolbar-btn"
+            id="h1Btn"
+            title="Cabeçalho 1 (Ctrl+1)"
+            data-heading="1"
+          >
+            H1
+          </button>
+          <button
+            class="toolbar-btn"
+            id="h2Btn"
+            title="Cabeçalho 2 (Ctrl+2)"
+            data-heading="2"
+          >
+            H2
+          </button>
+          <button
+            class="toolbar-btn"
+            id="h3Btn"
+            title="Cabeçalho 3 (Ctrl+3)"
+            data-heading="3"
+          >
+            H3
+          </button>
+
+          <div class="toolbar-separator" aria-hidden="true"></div>
+
+          <button class="toolbar-btn" id="todoBtn" title="Lista de tarefas">
+            <span aria-hidden="true">☐</span> Todo
+          </button>
+          <button
+            class="toolbar-btn"
+            id="bulletBtn"
+            title="Lista com marcadores"
+          >
+            <span aria-hidden="true">•</span> Lista
+          </button>
+
+          <div class="toolbar-separator" aria-hidden="true"></div>
+
+          <button class="toolbar-btn" id="saveBtn" title="Salvar (Ctrl+S)">
+            <span aria-hidden="true">💾</span> Salvar
+          </button>
+        </div>
+
+        <!-- Container do editor -->
+        <div class="editor-container">
+          <!-- Título da página -->
+          <input
+            type="text"
+            class="page-title"
+            id="pageTitle"
+            placeholder="Título da página..."
+            aria-label="Título da página"
+            maxlength="100"
+          />
+
+          <!-- Editor principal -->
+          <div
+            id="editor"
+            class="editor"
+            contenteditable="true"
+            role="textbox"
+            aria-label="Editor de conteúdo"
+            aria-multiline="true"
+            spellcheck="true"
+          >
+            <!-- Conteúdo será inserido dinamicamente aqui -->
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal para criar nova página -->
+    <div
+      id="newPageModal"
+      class="modal"
+      role="dialog"
+      aria-labelledby="newPageTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-content">
+        <header class="modal-header">
+          <h2 id="newPageTitle">Nova Página</h2>
+        </header>
+
+        <form id="newPageForm">
+          <div class="form-group">
+            <label for="pageTitle" class="form-label">Título da página</label>
+            <input
+              type="text"
+              id="pageTitleInput"
+              class="form-input"
+              placeholder="Digite o título..."
+              required
+              maxlength="100"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="pageIcon" class="form-label">Ícone (opcional)</label>
+            <input
+              type="text"
+              id="pageIconInput"
+              class="form-input"
+              placeholder="📝"
+              maxlength="2"
+              pattern="[\p{Emoji}]+"
+            />
+            <small>Use um emoji como ícone da página</small>
+          </div>
+
+          <footer class="modal-actions">
+            <button type="button" class="btn btn-secondary" id="cancelNewPage">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" id="createNewPage">
+              Criar Página
+            </button>
+          </footer>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal de configurações -->
+    <div
+      id="settingsModal"
+      class="modal"
+      role="dialog"
+      aria-labelledby="settingsTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-content">
+        <header class="modal-header">
+          <h2 id="settingsTitle">Configurações</h2>
+        </header>
+
+        <div class="settings-content">
+          <div class="form-group">
+            <label class="form-label">Tema</label>
+            <div class="radio-group">
+              <label class="radio-item">
+                <input type="radio" name="theme" value="light" checked />
+                <span>Claro</span>
+              </label>
+              <label class="radio-item">
+                <input type="radio" name="theme" value="dark" />
+                <span>Escuro</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Auto-save</label>
+            <div class="checkbox-group">
+              <label class="checkbox-item">
+                <input type="checkbox" id="autoSaveEnabled" checked />
+                <span>Salvar automaticamente a cada 15 segundos</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Estatísticas</label>
+            <div class="stats-display" id="statsDisplay">
+              <!-- Estatísticas serão inseridas aqui -->
+            </div>
+          </div>
+        </div>
+
+        <footer class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="closeSettings">
+            Fechar
+          </button>
+          <button type="button" class="btn btn-primary" id="saveSettings">
+            Salvar
+          </button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Toolbar flutuante para seleção de texto -->
+    <div
+      id="floatingToolbar"
+      class="floating-toolbar"
+      role="toolbar"
+      aria-label="Formatação rápida"
+    >
+      <button class="floating-btn" data-command="bold" title="Negrito">
+        <strong>B</strong>
+      </button>
+      <button class="floating-btn" data-command="italic" title="Itálico">
+        <em>I</em>
+      </button>
+      <button class="floating-btn" data-command="underline" title="Sublinhado">
+        <u>U</u>
+      </button>
+    </div>
+
+    <!-- Mensagens de notificação -->
+    <div id="notifications" class="notifications-container" aria-live="polite">
+      <!-- Notificações serão inseridas aqui -->
+    </div>
+
+    <!-- Loading indicator -->
+    <div id="loadingIndicator" class="loading-indicator" aria-hidden="true">
+      <div class="spinner"></div>
+      <span>Carregando...</span>
+    </div>
+
+    <!-- Scripts serão injetados pelo Webpack -->
+  </body>
+</html>
