@@ -1,9 +1,9 @@
 {
-  "name": "notionclone",
+  "name": "beacon",
   "version": "1.0.0",
-  "description": "Um aplicativo de produtividade moderno similar ao Notion",
+  "description": "Um aplicativo de produtividade",
   "main": "dist/main.js",
-  "author": "Seu Nome",
+  "author": "Gustavo Silva",
   "license": "MIT",
   "homepage": ".",
   "private": true,
@@ -52,8 +52,8 @@
     "electron-store": "^8.1.0"
   },
   "build": {
-    "appId": "com.notionclone.app",
-    "productName": "NotionClone",
+    "appId": "com.Beacon.app",
+    "productName": "Beacon",
     "directories": {
       "output": "release",
       "buildResources": "assets"
@@ -85,7 +85,7 @@
       ],
       "icon": "assets/icon.ico",
       "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
-      "publisherName": "NotionClone"
+      "publisherName": "Beacon"
     },
     "mac": {
       "target": [
@@ -139,7 +139,7 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "NotionClone"
+      "shortcutName": "Beacon"
     }
   },
   "keywords": [
